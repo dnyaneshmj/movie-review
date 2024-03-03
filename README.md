@@ -1,3 +1,12 @@
+
+
+
+#### Setup on local
+```
+  npm install
+  npm run dev
+```
+
 ### Web Development Technical Assessment
 
 #### Task Description:
