@@ -1,16 +1,51 @@
 import React, { useEffect } from "react";
+const API_KEY = "db6a248b";
+const API_URL = "http://www.omdbapi.com/";
 
-const MovieList = () =>{
+const MovieList = () => {
 
-    useEffect(()=>{
-        //API call
-    })
+  useEffect(() => {
+    //API call
+    //getMovieDetails()
+  },[]);
 
-    return(
-        <>
-            List of Movies
-        </>
-    )
+  return (
+    <div className="h-screen w-full relative bg-black overflow-y-auto">
+    <div className="w-9/12 mx-auto text-center my-20">
+      <h1 className="text-white">Movie Reviews</h1>
 
-}
-export default MovieList
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          {/* Release date and Rating */}
+          {/* <label> Filter Movie By </label> */}
+          <div className="grid">
+            <select className=" row-start-1 col-start-1 w-full px-3 py-1.5 border-2 border-white rounded-full">
+              <option selected> Filter Movies By </option>
+              <option value={"data"}> Release Date </option>
+              <option value={"rate"}> Rating </option>
+            </select>
+            {/* <img src="/images/down-arrow.png" alt="" className="pointer-events-none row-start-1 col-start-1" width={15} height={15} /> */}
+          </div>
+        </div>
+
+        {/* Alphabetical order and Reverse alphabetical order */}
+        <div>
+          {/* <label>Sort Result By</label> */}
+          <select className="w-full">
+            <option selected> Sort Result By </option>
+            <option value="atoz"> {"A -> Z (Alphabetical Order)"}</option>
+            <option value="ztoa">
+              {" "}
+              {"Z -> A (Reverse Alphabetical Order)"}{" "}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div className="pt-8">
+        
+      </div>
+    </div>
+  </div>
+  );
+};
+export default MovieList;
