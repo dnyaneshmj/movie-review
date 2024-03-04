@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-const API_KEY = "db6a248b";
-const API_URL = "http://www.omdbapi.com/";
 
 const MovieList = () => {
 
