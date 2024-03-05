@@ -3,18 +3,19 @@ import MovieCard from "./MovieCard";
 import { getAllMovies } from "../data/api";
 
 const MovieList = () => {
-  const movieListRef = useRef();
+  const movieListRef = useRef([]);
   const sortRef = useRef("none");
   const filterRef = useRef("none");
   const [movieList, setMovies] = useState([]);
-  const [sort, setSort] = useState([]);
-  const [filter, setFilter] = useState([]);
+
+  const [sort, setSort] = useState();
+  const [filter, setFilter] = useState();
 
   const fetchMovies = useCallback(async () => {
     try {
       const list_movies = await getAllMovies();
-      setMovies(list_movies);
       movieListRef.current = [...list_movies];
+      setMovies(list_movies);
     } catch (error) {
       console.log(error);
     }
@@ -24,79 +25,73 @@ const MovieList = () => {
     fetchMovies();
   }, []);
 
-  // Fast & Furious 6
-  // Fast Five
-  // The Fast and the Furious
-  // The Fast and the Furious: Tokyo Drift
-  // Fast Times at Ridgemont High
-  // Fast X
-  // Fast & Furious Presents: Hobbs & Shaw
-  // Fast & Furious
+  const newFiltersHandler = () =>{
 
-  const filterHandler = () =>{
     let filter = filterRef.current;
-    let filteredMovie = [...movieList]
-    if (filter == "date"){
-        movieList.sort((a, b) => a.released_date_timestamp - b.released_date_timestamp);
-        setMovies(movieList);
-    }else if (filter == "rating"){
-        movieList.sort((a, b) => b.rating.localeCompare(a.rating));
-        setMovies(movieList);
-    }else if (filter == "none" ){
-        // movieList = [...movieListRef.current]
-        setMovies(movieListRef.current);
-    }
-  }
-  const sortHandler = () => {
     let sort = sortRef.current;
-
-    if (sort == "atoz"){
-        movieList.sort((a, b) => a.title.localeCompare(b.title));
-        setMovies(movieList);
-    }else if (sort == "ztoa"){
-        movieList.sort((a, b) => b.title.localeCompare(a.title));
-        setMovies(movieList);
-    } else if (sort == "none"){
-        setMovies(movieListRef.current);
-    };
-    // setMovies(filteredMovie)
     
-    // if (sort == "none"){
-    //     setMovies(movieListRef.current);
-    // };
-    // if (sort == "none") setMovies(movieListRef.current);
+    //created new copy of array 
+    let filteredMovie = [...movieListRef.current]
+    console.log("filter",filter);
+    console.log("sort",sort);
 
-    // if (sort == "none" && filter == "none") {
-    //   setMovies(movieListRef.current);
-    // } else {
-     
-    // }
-  };
+    if (filter == "date") {
+        filteredMovie.sort(
+          (a, b) => a.released_date_timestamp - b.released_date_timestamp
+        );
+        setMovies(filteredMovie);
+      } else if (filter == "rating") {
+        filteredMovie.sort((a, b) => b.rating.localeCompare(a.rating));
+        setMovies(filteredMovie);
+      } 
+
+      if (sort == "atoz") {
+        filteredMovie.sort((a, b) => a.title.localeCompare(b.title));
+        console.log("atoz",filteredMovie);
+        setMovies(filteredMovie);
+      } else if (sort == "ztoa") {
+        console.log("zota",filteredMovie);
+        filteredMovie.sort((a, b) => b.title.localeCompare(a.title));
+        setMovies(filteredMovie);
+      } 
+
+    if (filter == "none" && sort == "none") {
+        setMovies(movieListRef.current);
+        console.log("filter",movieListRef.current)
+      }
+  }
+
   const handleFilterChange = (e) => {
+
     if (e.target.value === "date") {
-      setFilter("date");
       filterRef.current = "date";
+      setFilter("date");
     } else if (e.target.value === "rating") {
-      setFilter("rating");
       filterRef.current = "rating";
+      setFilter("rating");
     } else {
-      setFilter("none");
       filterRef.current = "none";
+      setFilter("none");
     }
-    filterHandler();
+
+    newFiltersHandler();
   };
+
   const handleSortChange = (e) => {
+
+    console.log("sort", e.target.value)
     if (e.target.value === "atoz") {
-      setSort("atoz");
       sortRef.current = "atoz";
+      setSort("atoz");
     } else if (e.target.value === "ztoa") {
-      setSort("ztoa");
       sortRef.current = "ztoa";
+      setSort("ztoa");
     } else {
-      setSort("none");
       sortRef.current = "none";
+      setSort("none");
     }
-    sortHandler();
+    newFiltersHandler();
+
   };
 
   const renderMovies = () => {
@@ -110,16 +105,6 @@ const MovieList = () => {
       />
     ));
   };
-  //   {movies.map((movie) => {
-  //     <MovieCard
-  //     title={movie.title}
-  //     poster={movie.Poster}
-  //     released_date = {movie.released_date}
-  //     rating = {movie.rating}
-  //     />
-  //  }
-  //  )}
-  //   console.log(movieListRef.current)
 
   return (
     <div className="h-screen w-full relative bg-black overflow-y-auto">
