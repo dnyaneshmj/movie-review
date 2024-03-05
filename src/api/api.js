@@ -1,5 +1,5 @@
-const API_KEY = "db6a248b";
-const API_URL = "http://www.omdbapi.com/";
+const API_KEY = import.meta.env.VITE_OMDB_API_KEY
+const API_URL = import.meta.env.VITE_OMDB_API_URL
 
 export const getMovies = async () => {
   try {
