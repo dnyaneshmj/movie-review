@@ -4,7 +4,7 @@ const API_URL = "http://www.omdbapi.com/";
 export const getMovies = async () => {
   try {
     const response = await fetch(
-      `${API_URL}?apiKey=${API_KEY}&s=fast&type=movie`
+      `${API_URL}?apiKey=${API_KEY}&s=Harry&type=movie`
     );
     if (response.ok) {
       const result = await response.json();
@@ -26,7 +26,6 @@ export const getMovieDetails = async (imdbId) => {
     );
     if (response.ok) {
       const result = await response.json();
-      console.log(result);
       return result;
     } else {
       console.error(`Request failed with status code ${response}`);
@@ -38,23 +37,24 @@ export const getMovieDetails = async (imdbId) => {
   }
 };
 
+export const convertDateToTimestamp = (date_str) => {
+  let date = new Date(date_str);
+  return date.getTime();
+};
 
-export const getAllMovies = async() =>{
-    
-    const movies = await getMovies()
-    const movieList = []
-    movies.forEach( async (movie) => {
-        console.log(movie.imdbID);
-        const movieDetail = await getMovieDetails(movie.imdbID);
-        let movieObj = {
-            title: movieDetail?.Title,
-            poster: movieDetail?.Poster,
-            released_date: movieDetail?.Released,
-            rating:movieDetail?.imdbRating
-        }
-        movieList.push(movieObj)
-    });
-       
-        
+export const getAllMovies = async () => {
+  const movies = await getMovies();
+  if (!movies) return [];
 
+  const moviePromises = movies.map(async (movie) => {
+    const movieDetail = await getMovieDetails(movie?.imdbID);
+    return {
+      title: movieDetail?.Title,
+      poster: movieDetail?.Poster,
+      released_date: movieDetail?.Released,
+      released_date_timestamp: convertDateToTimestamp(movieDetail?.Released),
+      rating: movieDetail?.imdbRating,
+    };
+  });
+  return Promise.all(moviePromises);
 }
