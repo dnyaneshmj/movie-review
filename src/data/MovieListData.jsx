@@ -12,14 +12,6 @@ const MovieListData = () => {
   const [sort, setSort] = useState();
   const [filter, setFilter] = useState();
 
-//   const fetchMovies = async () => {
-
-//     await getAllMovies().then((data) => {
-//         setMovies(data);
-//         movieListRef.current = data
-//     });
-
-//   };
 
   useEffect(() => {
     getAllMovies().then((data) => {
@@ -34,9 +26,7 @@ const MovieListData = () => {
 
     //created new copy of array
     let filteredMovie = [...movieListRef.current];
-    console.log("filter", filter);
-    console.log("sort", sort);
-
+    
     if (filter == "date") {
       filteredMovie.sort(
         (a, b) => a.released_date_timestamp - b.released_date_timestamp
@@ -49,17 +39,15 @@ const MovieListData = () => {
 
     if (sort == "atoz") {
       filteredMovie.sort((a, b) => a.title.localeCompare(b.title));
-      console.log("atoz", filteredMovie);
       setMovies(filteredMovie);
     } else if (sort == "ztoa") {
-      console.log("zota", filteredMovie);
       filteredMovie.sort((a, b) => b.title.localeCompare(a.title));
       setMovies(filteredMovie);
     }
 
     if (filter == "none" && sort == "none") {
       setMovies(movieListRef.current);
-      console.log("filter", movieListRef.current);
+      
     }
   };
 
@@ -79,7 +67,7 @@ const MovieListData = () => {
   };
 
   const handleSortChange = (e) => {
-    console.log("sort", e.target.value);
+
     if (e.target.value === "atoz") {
       sortRef.current = "atoz";
       setSort("atoz");
