@@ -23,14 +23,15 @@ const MovieList = ({ movieList, handleFilterChange, handleSortChange }) => {
   };
 
   return (
+    // grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2
     <div className="h-screen w-full relative bg-black overflow-y-auto">
-      <div className="w-11/12 mx-auto text-center my-20">
-        <h1 className="text-2xl">Latest Movie Reviews</h1>
+      <div className="w-11/12 mx-auto text-center my-6 md:mx-8 md:my-20 xl:mx-auto">
+        <h1 className="text-2xl my-4 font-Oxanium">Latest Movie Reviews</h1>
         {/* Filter UI */}
         <FilterContainer handleFilterChange={handleFilterChange} handleSortChange={handleSortChange} />
         {/* Movies List */}
         <div className="pt-8">
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
             {renderMovies()}
             
           </div>
