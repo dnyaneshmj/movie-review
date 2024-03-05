@@ -108,7 +108,7 @@ const MovieList = () => {
 
   return (
     <div className="h-screen w-full relative bg-black overflow-y-auto">
-      <div className="w-9/12 mx-auto text-center my-20">
+      <div className="w-11/12 mx-auto text-center my-20">
         <h1 className="text-2xl">Latest Movie Reviews</h1>
         <div className="grid grid-cols-2 gap-4">
           <div>
