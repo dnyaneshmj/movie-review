@@ -5,7 +5,7 @@ const FilterContainer = ({ handleFilterChange, handleSortChange }) => {
 
       <div className="w-4/5 mx-auto sm:w-full 2xl:w-4/5">
           <select
-            className=" w-full px-3 py-1.5 border-2 border-white rounded-full font-Oxanium"
+            className=" w-full px-3 py-1.5 border-2 border-white rounded-full font-Oxanium "
             onChange={handleFilterChange}
           >
             <option defaultValue value="none">
