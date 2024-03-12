@@ -3,13 +3,7 @@ import MovieCard from "./MovieCard";
 import FilterContainer from "./FilterContainer";
 
 const MovieList = ({ movieList, handleFilterChange, handleSortChange }) => {
-
-  const [movies, setMovies] = useState([]) 
-  useEffect(() =>{
-    setMovies(movieList)
-  },[movieList])
   
-
   const renderMovies = () => { 
     return movieList.map((movie) => (
       <MovieCard
